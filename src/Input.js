@@ -19,7 +19,7 @@ export default class Input extends Component {
                 onChange={handleChange}
                 type="text"
                 className="form-control"
-                value={item}
+                value={item.title}
               ></input>
             </div>
 

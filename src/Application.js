@@ -7,7 +7,7 @@ export default class Application extends Component {
 
     state={
         items:[],
-        item:"",
+        item:{id:0,title:"",completed:false},
         id:uuid(),
         isEditItem:false
     }
@@ -25,31 +25,36 @@ export default class Application extends Component {
     }
 
     handleSubmit=(e)=>{
+        console.log(this.state.item);
         e.preventDefault();
-
         const newItem = {
             id:this.state.id,
-            title:this.state.item,
+            title:this.state.item.title,
+            completed:this.state.item.completed
         }
         this.setState({
             items:[newItem, ...this.state.items],
-            item:"",
+            item:{id:0,title:"",completed:false},
             id:uuid(),
             isEditItem:false
         })
     }
     handleChange=(e)=>{
+        const inputItem = {
+            id:this.state.id,
+            title:e.target.value,
+            completed:this.state.item.completed
+        }
         this.setState({
-            item:e.target.value
+            item:inputItem
         })
     }
     handleEdit=(id)=>{
         const filterItems = this.state.items.filter(item=>item.id !== id);
         const selectItem = this.state.items.find(item=>item.id === id);
-
         this.setState({
             items:filterItems,
-            item:selectItem.title,
+            item:selectItem,
             id:id,
             isEditItem:true
         })
